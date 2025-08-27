@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,26 +7,26 @@ using System.Threading.Tasks;
 
 namespace Labyrinth
 {
-    internal class LabyrinthBuilder
+    internal class LabyrinthBuilder : IEnumerable<KeyValuePair<PositionLabyrinth, IElementLabyrinth>>
     {
-
-        private Dictionary<string, LabyrinthModel> labyrinths = new();
+        public Dictionary<PositionLabyrinth, IElementLabyrinth> grille;
         public LabyrinthModel this[string name]
         {
-            get => labyrinths[name];  // when you do builder["model1"]
-            set => labyrinths[name] = value;
+            get
+            {
+                return new LabyrinthModel();
+            }
         }
 
-    public string model1=
-            """
-            ---------------------
-            |                   |
-            |                   |
-            |                   |
-            |                   |
-            |                   |
-            ---------------------
-            """
-            ;
+        public IEnumerator<KeyValuePair<PositionLabyrinth, IElementLabyrinth>> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
+
 }

@@ -8,9 +8,7 @@ using System.Threading.Tasks;
 namespace Labyrinth
 {
     internal class LabyrinthVue
-    {
-        public LabyrinthModel labyrinthModel = new();
-        
+    {   
 
         public void Affiche(LabyrinthModel model, string message)
         {

@@ -8,10 +8,19 @@ namespace Labyrinth
 {
     internal class Controller
     {
+        public LabyrinthModel Model { get; set; }
+        public LabyrinthVue Vue { get; set; }
+
+        public string Message { get; set; }
+
+        public Controller(LabyrinthModel model, LabyrinthVue vue)
+        {
+            Model = model;
+            Vue = vue;
+        }
         public void Start() 
         {
-
-
+            Vue.Affiche(Model, Message);
         }
     }
 }
