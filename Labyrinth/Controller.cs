@@ -18,7 +18,7 @@ namespace Labyrinth
         }
         public void Start() 
         {
-            Vue.Affiche(Model);
+            Vue.Print(Model);
         }
     }
 }

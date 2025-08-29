@@ -10,7 +10,9 @@ namespace Labyrinth
     {
         public char Symbole => '*';
 
+        public ILabyrinthObject Content { 
+            get => null; 
+            set => throw new LabyrinthException("Un mur ne peut pas contenir un object."); }
     }
 
-    
 }

@@ -30,6 +30,7 @@ namespace Labyrinth
             // Da mein delegate eine Funktion ohne Parameter repräsentiert und ein IElement zurück gibt kann ich eine Lambda funktion verwenden die eine neue Instanz eines IElements erstellt.
             factories.Add('*', BuildMur);
             factories.Add('.', () => new Piece());
+            factories.Add('O', () => new Piece(new Personnage()));
         }
 
         public LabyrinthModel FileToModel(string filePath, string modelName)
@@ -52,12 +53,18 @@ namespace Labyrinth
                     int col = 0;
                     foreach (char c in line)
                     {
+                        // Ich iteriere durch jede Zeile und darin durch jedes Zeichen.
+                        // Für jedes Nicht-Leerzeichen rufe ich das Delegate aus factories auf, das mit diesem Zeichen verknüpft ist,
+                        // und speichere das erzeugte Element im Modell im Index mit PositionLabyrinth.
                         if (c != ' ')
                         {
-                            // Ich iteriere durch jede Zeile und darin durch jedes Zeichen.
-                            // Für jedes Nicht-Leerzeichen rufe ich das Delegate aus factories auf, das mit diesem Zeichen verknüpft ist,
-                            // und speichere das erzeugte Element im Modell im Index mit PositionLabyrinth.
-                            model[new PositionLabyrinth(lig, col)] = factories[c]();
+                            // Ich teste ob ich ein gültiges Delegate für das gelesene Symbole definiert habe.
+                            // falls nicht verwende ich als standart das delegate für Piece.
+                            if (factories.TryGetValue(c, out var create))
+                            {
+                                model[new PositionLabyrinth(lig, col)] = create();
+                            }
+                            else model[new PositionLabyrinth(lig, col)] = factories['.']();
                         }
                         col++;
                     }

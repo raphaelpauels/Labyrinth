@@ -10,6 +10,7 @@ namespace Labyrinth
     internal class LabyrinthModel :IEnumerable<KeyValuePair<PositionLabyrinth, IElementLabyrinth>>
     {
         public string Nom { get; set; }
+        public Personnage Personnage { get; set; }
 
         private SortedDictionary<PositionLabyrinth, IElementLabyrinth> grille;
 
@@ -17,7 +18,17 @@ namespace Labyrinth
         // Die Indexe enthalten ihrersetis IElementLabyrinth Objekte.
         public IElementLabyrinth this[PositionLabyrinth position] { 
             get { return grille[position]; } 
-            set { grille[position] = value; } 
+            set 
+            { 
+                // Ich checke ob der Wert in der aktuellen Position den Content Personnage hat.
+                // Falls ja muss ich das im Modell festhalten und die Position erfassen.
+                // In der Klasse Personnage ist festgelegt dass diese immer eine Position haben muss.
+                if (value.Content is Personnage p)
+                {
+                    Personnage = p;
+                    Personnage.Position = position;
+                }
+                grille[position] = value; } 
         }
 
         public LabyrinthModel(string nom)
@@ -26,31 +37,8 @@ namespace Labyrinth
             Nom = nom;
         }
 
-        public void Print()
-        {
-            // Ich möcht das Grid drucken. Beim Einlesen des Grids aus dem File habe ich Leerzeichen jedoch übersprungen.
-            // Deshalb muss ich nun zählen was die max Dimensionen meines Grids sind um fehlende Position mit Leerzeichen zu füllen.
-            int maxLine = 0;
-            int maxColumn = 0;
-            foreach (var entry in grille)
-            {
-                if (entry.Key.Line > maxLine) { maxLine = entry.Key.Line; };
-                if (entry.Key.Column > maxColumn) { maxColumn = entry.Key.Column; };
-            }
-
-            // Anschlissend gehe ich meine Kollektion durch und schaue ob ich für jede Lig/Col Kombination ein Symbol gespeochert habe.
-            // Falls nicht, drucke ich ein Leerzeichen. Wenn ich meinen maximale Kolonnenindex erreicht habe, wechsle ich die Linie.
-            // Dies mache ich, bis ich die maximale Linie erreicht habe.
-            for (int lig = 0; lig <= maxLine; lig++)
-            {
-                for (int col = 0; col <= maxColumn; col++)
-                {
-                    if (!grille.ContainsKey(new PositionLabyrinth(lig, col))) { Console.Write(' '); }
-                    else { Console.Write(grille[new PositionLabyrinth(lig, col)].Symbole); }
-                }
-                Console.WriteLine();
-            }
-        }
+        // Erlaubt es von Aussen zu checken, ob ein Model einen Wert für einen Key gespeichert hat. Falls ja, gibt es diesen Wert als Typ IElementLabyrinth wieder.
+        public bool TryGetValue(PositionLabyrinth position, out IElementLabyrinth element) => grille.TryGetValue(position, out element);
 
         // Um über alle Key-Value-Paare in meinem Dictionary zu iterieren,
         // gebe ich hier den Enumerator des internen Dictionaries zurück.

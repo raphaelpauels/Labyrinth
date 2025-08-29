@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Labyrinth 
+namespace Labyrinth
 {
-    internal interface IElementLabyrinth : ISymbole
+    internal interface ILabyrinthObject : ISymbole
     {
-        ILabyrinthObject Content { get; set; }
     }
 }
