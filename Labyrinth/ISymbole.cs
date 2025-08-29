@@ -8,6 +8,6 @@ namespace Labyrinth
 {
     internal interface ISymbole
     {
-        public abstract char Symbole { get; }
+        char Symbole { get; }
     }
 }

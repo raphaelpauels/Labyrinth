@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace Labyrinth
 {
     internal class LabyrinthVue
-    {   
-
-        public void Affiche(LabyrinthModel model, string message)
+    {
+        public string Message => "loaded succesfully!";
+        public void Affiche(LabyrinthModel model)
         {
-            Console.WriteLine(message);
             Console.WriteLine(model.Nom);
+            model.Print();
         }
     }
 }

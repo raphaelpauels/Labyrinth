@@ -11,8 +11,6 @@ namespace Labyrinth
         public LabyrinthModel Model { get; set; }
         public LabyrinthVue Vue { get; set; }
 
-        public string Message { get; set; }
-
         public Controller(LabyrinthModel model, LabyrinthVue vue)
         {
             Model = model;
@@ -20,7 +18,7 @@ namespace Labyrinth
         }
         public void Start() 
         {
-            Vue.Affiche(Model, Message);
+            Vue.Affiche(Model);
         }
     }
 }

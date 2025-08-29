@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Labyrinth
 {
-    internal class Mur : IElementLabyrinth
+    internal class Piece : IElementLabyrinth
     {
-        public char Symbole => '*';
+        public char Symbole => '.';
 
     }
-
-    
 }

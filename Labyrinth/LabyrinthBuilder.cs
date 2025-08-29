@@ -7,26 +7,73 @@ using System.Threading.Tasks;
 
 namespace Labyrinth
 {
-    internal class LabyrinthBuilder : IEnumerable<KeyValuePair<PositionLabyrinth, IElementLabyrinth>>
+    internal class LabyrinthBuilder
     {
-        public Dictionary<PositionLabyrinth, IElementLabyrinth> grille;
-        public LabyrinthModel this[string name]
+        // Ich erstelle ein Dictionary das einen Key mit einem Create delegate verbindet (welches eine Methode repräsentiert).
+        // Das ist hilfreich wenn ich einen Input lese und den entsprechenden Delegate nachschlagen und ausführen kann.
+        private Dictionary<char, Create> factories;
+
+        // Ich erstelle eine Delegatetype der eine Methode ohne Parameter repräsentiert,
+        // Und ein IElementLabyrinth returned.
+        delegate IElementLabyrinth Create();
+
+        // Alternative Verwendung von Delegate, Länger als eine Lambda funktion im Dictionary zu verwenden, bei längerem Code aber besser.
+        // Ich erstelle eine Methode BuildMur die keine Parameter erwartet und eine neues Object Mur instanziert.
+        // Diese MEthode kann ich in meinem Dictionary verwenden, da es die Kriterien des Delegate erfüllt.
+        IElementLabyrinth BuildMur() => new Mur();
+
+        public LabyrinthBuilder()
         {
-            get
+            // Wenn ich einen LabyrinthBuilder instanziere möcht ich dass dieser ein Dictionary factories enthält.
+            factories = new Dictionary<char, Create>();
+            // Ich definiere 2 factory_EintrÄge, die ihr Zeichen mit einer Create Implemnentierung  verbinden.
+            // Da mein delegate eine Funktion ohne Parameter repräsentiert und ein IElement zurück gibt kann ich eine Lambda funktion verwenden die eine neue Instanz eines IElements erstellt.
+            factories.Add('*', BuildMur);
+            factories.Add('.', () => new Piece());
+        }
+
+        public LabyrinthModel FileToModel(string filePath, string modelName)
+        {
+            String line;
+            try
             {
-                return new LabyrinthModel();
+                //Pass the file path and file name to the StreamReader constructor
+                using StreamReader sr = new StreamReader(filePath);
+
+                //Read the first line of text
+                line = sr.ReadLine();
+
+                LabyrinthModel model = new(modelName);
+
+                //Continue to read until you reach end of file
+                int lig = 0;
+                while (line != null)
+                {
+                    int col = 0;
+                    foreach (char c in line)
+                    {
+                        if (c != ' ')
+                        {
+                            // Ich iteriere durch jede Zeile und darin durch jedes Zeichen.
+                            // Für jedes Nicht-Leerzeichen rufe ich das Delegate aus factories auf, das mit diesem Zeichen verknüpft ist,
+                            // und speichere das erzeugte Element im Modell im Index mit PositionLabyrinth.
+                            model[new PositionLabyrinth(lig, col)] = factories[c]();
+                        }
+                        col++;
+                    }
+
+                    //Read the next line
+                    line = sr.ReadLine();
+                    lig++;
+                }
+                return model;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+                throw new Exception("FileToModel failed", e);
+                 
             }
         }
-
-        public IEnumerator<KeyValuePair<PositionLabyrinth, IElementLabyrinth>> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
     }
-
 }
