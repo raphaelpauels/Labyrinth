@@ -29,5 +29,12 @@ namespace Labyrinth
         {
             Content = content;
         }
+
+        // Wenn die Person durch das Labyrinth wandert und eine Postion mit Objekt Piece belegt, sollte
+        // Content dieses Piece durch das objekt Person ersetzt werden.
+        public void Visite(Personnage personnage)
+        {
+            Content = personnage;
+        }
     }
 }

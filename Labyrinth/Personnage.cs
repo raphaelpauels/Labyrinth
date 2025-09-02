@@ -10,6 +10,10 @@ namespace Labyrinth
     {
         public char Symbole => 'O';
         public PositionLabyrinth? Position;
-        
+
+        public void Visite(Personnage personnage)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -18,6 +18,47 @@ namespace Labyrinth
             Column = column;
         }
 
+        public PositionLabyrinth this[Direction direction] { 
+            get
+            {
+                // Switch Expression
+                // Ich erstelle einen Indexer für das Attribut direction in der Klasse PositionLabyrinth. 
+                // Dies erlaubt mir, für einen Index direction in PositionLabyrinth einen Wert aufzurufen. 
+                // In diesem Fall ist der Wert die neue Instanzierung einer PositionLabyrinth, die je nach direction das benachbarte Feld belegt.
+                return direction switch
+                {
+                    Direction.NORD => new PositionLabyrinth(Line - 1, Column),
+                    Direction.SUD => new PositionLabyrinth(Line + 1, Column),
+                    Direction.EST => new PositionLabyrinth(Line, Column + 1),
+                    Direction.OUEST => new PositionLabyrinth(Line, Column - 1),
+                    _ => throw new LabyrinthException("Cannot find suitable position.")
+                };
+
+
+                // Switch Instruction
+                // Wird ersetzt durch eine Switch Expression die moderner und einfacher zu lesen ist.
+                /*
+                switch (direction)
+                {
+                    case Direction.NORD:
+                        return new PositionLabyrinth(this.Line - 1, this.Column);
+                        
+                    case Direction.SUD:
+                        return new PositionLabyrinth(this.Line + 1, this.Column);
+                    case Direction.EST:
+                        return new PositionLabyrinth(this.Line, this.Column +1);
+
+                    case Direction.OUEST:
+                        return new PositionLabyrinth(this.Line, this.Column -1);
+                    default:
+                        throw new LabyrinthException("Cannot find suitable position.");
+
+                }
+                */
+            }
+        }
+
+
         public int CompareTo(PositionLabyrinth other) =>
         
             /////++++ Shortest Version

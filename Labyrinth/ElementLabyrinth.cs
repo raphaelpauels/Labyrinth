@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Labyrinth 
 {
-    internal interface IElementLabyrinth : ISymbole
+    internal interface IElementLabyrinth : ISymbole, IPersonnageVisitable
     {
         ILabyrinthObject Content { get; set; }
     }

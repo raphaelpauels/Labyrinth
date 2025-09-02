@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Labyrinth
 {
-    internal interface ILabyrinthObject : ISymbole, IPersonnageVisitable
+    internal enum Direction
     {
+        NORD, 
+        EST, 
+        SUD,
+        OUEST,
     }
 }

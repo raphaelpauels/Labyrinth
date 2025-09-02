@@ -37,6 +37,41 @@ namespace Labyrinth
             Nom = nom;
         }
 
+        // Methode mit der ich meine Person durch das Labyrinth bewege.
+        public void Move(Personnage personnage, Direction direction)
+        {
+            // Ich speichere die aktuelle Position von meiner Person.
+            PositionLabyrinth currentPos = personnage.Position;
+
+            // Ich prüfe ob ich einen Eintrag für die benachbarte Position (Indexer von PositionLabyrinth currentPos greift.
+            // Ich erstelle eine neue PositionLabyrinth für den Eintrag direction (Enum Direction).
+            if (grille.ContainsKey(currentPos[direction]))
+            {
+                // falls einen passenden Schlüssel (Position) in meinem grid gefunden wird
+                // lösche ich den Inhalt den Content der jetzigen Position (da der Content weiter wander)
+                // Die Position von personnage erhält die Postion des Nachbarfeld.
+                grille[currentPos].Content = null;
+                personnage.Position = currentPos[direction];
+                //try
+                //{
+                // Die Person klopft an der neuen Position an, und schaut welches Element dort liegt.
+                // Eine Fehlermeldung tritt auf wenn das Element eine Mauer ist, wird in Controller gehandelt.
+                grille[personnage.Position].Visite(personnage);
+
+                //}
+                //catch (LabyrinthException e)
+                //{
+                //    Console.WriteLine(e.Message);
+                //}
+
+            }else 
+            {
+                // Falls keine gültige Pos gefunden wird, wird die Pos von Person gelöscht und eine Fehlermeldung angezeigt.
+                personnage.Position = null;
+                throw new OutOfLabyrinthException("Le personnage est sorti du Labyrinthe"); 
+            }        
+        }
+
         // Erlaubt es von Aussen zu checken, ob ein Model einen Wert für einen Key gespeichert hat. Falls ja, gibt es diesen Wert als Typ IElementLabyrinth wieder.
         public bool TryGetValue(PositionLabyrinth position, out IElementLabyrinth element) => grille.TryGetValue(position, out element);
 

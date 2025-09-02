@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Labyrinth
 {
-    internal interface ILabyrinthObject : ISymbole, IPersonnageVisitable
+    internal interface IPersonnageVisitable
     {
+        public void Visite(Personnage personnage);
     }
 }
