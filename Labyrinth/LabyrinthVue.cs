@@ -12,6 +12,7 @@ namespace Labyrinth
         public string Message => "loaded succesfully!";
         public void Print(LabyrinthModel model)
         {
+            Console.Clear();
             // Ich möcht das Grid drucken. Beim Einlesen des Grids aus dem File habe ich Leerzeichen jedoch übersprungen.
             // Deshalb muss ich nun zählen was die max Dimensionen meines Grids sind um fehlende Position mit Leerzeichen zu füllen.
             int maxLine = 0;
@@ -38,6 +39,17 @@ namespace Labyrinth
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine();
+
+            foreach (var entry in model.PersonnagesMap)
+            {
+                if (model.PersonnageKey[model.PersonnageActif] == entry.Key)
+                {
+                    Console.WriteLine($"ACTIF {entry.Key}: Keys: {entry.Value.Bag.Count}");
+                }else Console.WriteLine($"{entry.Key}: Keys: {entry.Value.Bag.Count}");
+            }
+            Console.WriteLine();
+
         }
 
     }

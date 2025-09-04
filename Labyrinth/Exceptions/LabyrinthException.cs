@@ -1,5 +1,4 @@
-﻿
-namespace Labyrinth
+﻿namespace Labyrinth.Exceptions
 {
     [Serializable]
     internal class LabyrinthException : Exception

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Labyrinth.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Labyrinth
+namespace Labyrinth.LabyrinthElements
 {
     internal class Piece : IElementLabyrinth
     {
@@ -34,7 +35,24 @@ namespace Labyrinth
         // Content dieses Piece durch das objekt Person ersetzt werden.
         public void Visite(Personnage personnage)
         {
+
+            switch (Content)
+            {
+                case Clef clef:
+                    clef.Visite(personnage);
+                    break;
+                case Personnage p:
+                    p.Visite(personnage);
+                    break;
+            }
+
+            //if (Content is Clef clef)
+            //{
+            //    clef.Visite(personnage);
+            //}
+
             Content = personnage;
+            
         }
     }
 }

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Labyrinth
+namespace Labyrinth.Interfaces
 {
-    internal interface ISymbole
+    internal interface ILabyrinthObject : ISymbole, IPersonnageVisitable
     {
-        char Symbole { get; }
     }
 }

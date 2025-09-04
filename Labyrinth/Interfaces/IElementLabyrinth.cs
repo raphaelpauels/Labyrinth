@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Labyrinth 
+namespace Labyrinth.Interfaces 
 {
     internal interface IElementLabyrinth : ISymbole, IPersonnageVisitable
     {

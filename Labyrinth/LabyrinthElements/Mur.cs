@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Labyrinth.Exceptions;
+using Labyrinth.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Labyrinth
+namespace Labyrinth.LabyrinthElements
 {
     internal class Mur : IElementLabyrinth
     {

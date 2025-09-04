@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Labyrinth.Exceptions;
+using Labyrinth.Interfaces;
+using Labyrinth.LabyrinthElements;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +14,11 @@ namespace Labyrinth
     {
         public string Nom { get; set; }
         public Personnage Personnage { get; set; }
+
+        public Dictionary<char, Personnage> PersonnagesMap = new Dictionary<char, Personnage>();
+        public List<char> PersonnageKey = new List<char>();
+
+        public int PersonnageActif { get; set; }
 
         private SortedDictionary<PositionLabyrinth, IElementLabyrinth> grille;
 
@@ -35,6 +43,7 @@ namespace Labyrinth
         {
             grille = new SortedDictionary<PositionLabyrinth, IElementLabyrinth>();
             Nom = nom;
+            PersonnageActif = 0;
         }
 
         // Methode mit der ich meine Person durch das Labyrinth bewege.
@@ -70,6 +79,22 @@ namespace Labyrinth
                 personnage.Position = null;
                 throw new OutOfLabyrinthException("Le personnage est sorti du Labyrinthe"); 
             }        
+        }
+
+        // PersonnageActif dient als Zähler von PersonnageKey.
+        // Diese Methode erlaubt es mir durch die möglichen Indexe zu gehen.
+        // Wenn mein Index den Wert von PersonnageKey.Count erreicht wird der Index durch das Modulo auf 0 gesetzt.
+        // Beispiel (4 Einträge): Rückgabefolge = 0, 1, 2, 3, 0, 1, ...
+        public int ActivePersonnage()
+        {
+           PersonnageActif = (PersonnageActif+1) % PersonnageKey.Count;
+            return PersonnageActif;
+        }
+
+        public int ActivePersonnage(char symbole)
+        {
+            PersonnageActif = PersonnageKey.IndexOf(symbole);
+            return PersonnageActif;
         }
 
         // Erlaubt es von Aussen zu checken, ob ein Model einen Wert für einen Key gespeichert hat. Falls ja, gibt es diesen Wert als Typ IElementLabyrinth wieder.
