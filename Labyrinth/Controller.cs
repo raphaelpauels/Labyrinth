@@ -22,6 +22,7 @@ namespace Labyrinth
         {
             int playerCount = Model.PersonnageKey.Count;
             bool quit = false;
+            Console.Clear();
             Vue.Print(Model);
             while (!quit)
             {
@@ -71,6 +72,7 @@ namespace Labyrinth
                             // Keine Pfeiltaste gedrückt? Keine weitere Aktion, der Loop wiederholt sich.
                             break;
                     }
+                    Console.Clear();
                     Vue.Print(Model);
                     
                     // Bei gültiger Pfeiltaste
@@ -84,6 +86,7 @@ namespace Labyrinth
                         {
 
                             Model.Move(personnageActive, direction);
+                            Console.Clear();
                             Vue.Print(Model);
 
                         }
@@ -99,6 +102,7 @@ namespace Labyrinth
                         // Figur verlässt Feld. Spielende.
                         catch (OutOfLabyrinthException eBound)
                         {
+                            
                             Model[oldPos].Content = null;
                             Model.ActivePersonnage();
                             
@@ -108,9 +112,10 @@ namespace Labyrinth
                                 
                                 quit = true;
                             }
-                            Console.WriteLine(eBound.Message);
+
+                            Console.Clear();
                             Vue.Print(Model);
-                            
+                            Console.WriteLine(eBound.Message);
                         }
                     }
                 }
@@ -119,7 +124,7 @@ namespace Labyrinth
                     quit = true;
                 }   
             }
-            Console.WriteLine("Congratulations!");
+            if (!quit) { Console.WriteLine("Congratulations!"); }
         }
     }
 }

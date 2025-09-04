@@ -12,7 +12,7 @@ namespace Labyrinth
         public string Message => "loaded succesfully!";
         public void Print(LabyrinthModel model)
         {
-            Console.Clear();
+            //Console.Clear();
             // Ich möcht das Grid drucken. Beim Einlesen des Grids aus dem File habe ich Leerzeichen jedoch übersprungen.
             // Deshalb muss ich nun zählen was die max Dimensionen meines Grids sind um fehlende Position mit Leerzeichen zu füllen.
             int maxLine = 0;

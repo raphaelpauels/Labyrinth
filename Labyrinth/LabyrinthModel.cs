@@ -77,7 +77,7 @@ namespace Labyrinth
             {
                 // Falls keine gültige Pos gefunden wird, wird die Pos von Person gelöscht und eine Fehlermeldung angezeigt.
                 personnage.Position = null;
-                throw new OutOfLabyrinthException("Le personnage est sorti du Labyrinthe"); 
+                throw new OutOfLabyrinthException($"{PersonnageKey[PersonnageActif]} est sorti du Labyrinthe"); 
             }        
         }
 

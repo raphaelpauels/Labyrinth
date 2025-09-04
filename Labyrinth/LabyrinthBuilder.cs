@@ -34,7 +34,7 @@ namespace Labyrinth
             factories.Add('.', () => new Piece());
             //factories.Add('O', () => new Piece(new Personnage(c)));
             factories.Add('_', () => new Porte());
-            factories.Add('F', () => new Piece(new Clef()));
+            factories.Add('f', () => new Piece(new Clef()));
         }
 
         public LabyrinthModel FileToModel(string filePath, string modelName)
@@ -71,7 +71,7 @@ namespace Labyrinth
                                 // Ich prüfe ob es sich um ein Buchstabensymbol handelt (F ist für Schlüssel reserviert).
                                 // Ich benutze dafür eine STATISCHE Methode der Klasse char. 
                                 // Deshalb ruft die Klasse char die Methode auf, und nicht die variable c.
-                            }else if (Char.IsLetter(c) && c != 'F')
+                            }else if (Char.IsLetter(c) && c != 'f')
                             {
                                 // Ich muss create mit einer neuen Methode neu zuweisen. Ansonsten wäre create null, da es sich auf das TryGetValue von vorher bezieht.
                                 // Ich lande hier, weil mein create vorher null gegeben hatt (es bestand kein Eintrag in factories.)

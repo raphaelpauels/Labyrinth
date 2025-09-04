@@ -9,7 +9,7 @@ namespace Labyrinth.LabyrinthElements
 {
     internal class Clef : ILabyrinthObject
     {
-        public char Symbole => 'F';
+        public char Symbole => 'f';
         public PositionLabyrinth? Position;
 
         public ICollection<ILabyrinthObject>? Bag;
